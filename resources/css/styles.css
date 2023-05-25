@@ -20,20 +20,21 @@
 
 /* Sidebar */
 .sidebar{
-    @apply flex flex-col h-screen sticky top-0 bg-sky-900 pt-8 text-white w-28 border-t-2 border-slate-100;
+    @apply flex flex-col max-h-screen sticky top-0 bg-sky-900 pt-4 text-white w-28 border-t border-slate-100 overflow-hidden;
 }
     .sidebar ul{
-        @apply text-white;
+        @apply text-white ;
     }
     .sidebar ul li{
-        @apply flex flex-col text-white py-2 hover:bg-slate-600 hover:text-slate-300;
+        @apply flex flex-col items-center text-white py-2 hover:bg-slate-600 hover:text-slate-300;
     }
+
     .sidebar ul li a{
         @apply flex flex-col items-center;
     }
 
     .sidebar ul li a i{
-        @apply text-xxl;
+        @apply text-xl;
     }
 
 .t-divider{
@@ -95,29 +96,29 @@
 
 
 /* Table Ticket */
-/* .table-ticket{
+.table-ticket{
     @apply w-full mx-auto text-gray-900 mb-4 ;
 }
-    .table-ticket th{
+    .table-ticket thead tr th{
         @apply uppercase px-1;
     }
     .table-ticket td{
         @apply px-1;
     }
     .table-ticket-divider{
-        @apply pb-4 border-b-2 border-gray-300;
-    } */
+        @apply border-b-2 border-sky-800;
+    }
 
 /* Forms */
 /* Forms Buttons */
 .btn{
-    @apply mx-1 md:mx-2 px-2 md:px-4 py-1 md:py-2 border-2 rounded-lg border-solid border-sky-500;
+    @apply mx-1 md:mx-2 px-2 md:px-4 py-1 md:py-2 border-2 rounded-lg border-solid border-sky-600 hover:border-slate-300;
 }
 .btn-update{
-    @apply text-white bg-sky-900 text-sm md:text-lg hover:bg-sky-600;
+    @apply text-white bg-sky-900 text-sm md:text-lg hover:bg-sky-800;
 }
 .btn-save{
-    @apply text-white bg-sky-900 text-sm md:text-lg hover:bg-sky-600;
+    @apply text-white bg-sky-900 text-sm md:text-lg hover:bg-sky-800;
 }
     /* Dialog Confirmation Buttons */
     .btn-confirm{
@@ -136,6 +137,12 @@
 }
 .error-msg{
     @apply text-red-500 text-xs;
+}
+.product-label-title{
+    @apply text-xxl text-slate-500 font-thin;
+}
+.product-label-info{
+    @apply text-xxl text-sky-900 font-thin;
 }
 
 /* Badge Status */

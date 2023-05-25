@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Brand;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+
 
 class BrandsSeeder extends Seeder
 {
@@ -17,28 +19,41 @@ class BrandsSeeder extends Seeder
     {
         //
         Brand::create([
-            'name' => 'SuperBags'
+            'name' => 'Servicios',
+            'slug' =>  Str::slug('Servicios'),
+        ]);
+        
+        Brand::create([
+            'name' => 'SuperBags',
+            'slug' =>  Str::slug('SuperBags'),
         ]);
         Brand::create([
-            'name' => 'Baloon'
+            'name' => 'Baloon',
+            'slug' =>  Str::slug('Baloon'),
         ]);
         Brand::create([
-            'name' => 'Casio'
+            'name' => 'Casio',
+            'slug' =>  Str::slug('Casio'),
         ]);
         Brand::create([
-            'name' => 'Smell'
+            'name' => 'Smell',
+            'slug' =>  Str::slug('Smell'),
         ]);
         Brand::create([
-            'name' => 'Bic'
+            'name' => 'Bic',
+            'slug' =>  Str::slug('Bic'),
         ]);
         Brand::create([
-            'name' => 'Papper'
+            'name' => 'Papper',
+            'slug' =>  Str::slug('Papper'),
         ]);
         Brand::create([
-            'name' => 'Durable'
+            'name' => 'Durable',
+            'slug' =>  Str::slug('Durable'),
         ]);
         Brand::create([
-            'name' => 'Patito'
+            'name' => 'Patito',
+            'slug' =>  Str::slug('Patito'),
         ]);
     }
 }

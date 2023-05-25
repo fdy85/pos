@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:model="formOpen">
+<x-dialog-modal wire:model="formOpen">
         <x-slot name="title">
             <div class="divider">
                 {{ $title}} | {{$selectedId==0?'CREAR':'ACTUALIZAR' }}
@@ -8,10 +8,10 @@
         <x-slot name="content">
         {{-- FORM --}}
             <div class="my-3">
-                <x-jet-label value="Nombre del Role" />
-                <x-jet-input type="text" wire:model.lazy="name" placeholder="Nombred del Role" class="form-input" />      
+                <x-label value="Nombre del Role" />
+                <x-input type="text" wire:model.lazy="name" placeholder="Nombred del Role" class="form-input" />      
             {{-- Error Msg by Validation --}}        
-                <x-jet-input-error for="name" />          
+                <x-input-error for="name" />          
             </div>
             <div class="my-3 grid grid-cols-2 gap-2">
                 <div class="w-full text-center col-span-2 text-xl">PERMISOS</div>
@@ -43,4 +43,4 @@
         {{-- Common form actions --}}
             <x-common.modal-footer-buttons />
         </x-slot>
-</x-jet-dialog-modal>
+</x-dialog-modal>

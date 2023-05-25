@@ -9,8 +9,10 @@ use Livewire\WithPagination;
 
 class ClientsIndex extends Component
 {
+    /* Pagination */
     use WithPagination;
 
+    /* Parmas */
     public $title, $add, $selectedId, $name, $address, $email, $rfc, $cel, $phone, $status, $search,  $formOpen;
 
     public function mount(){
@@ -35,13 +37,15 @@ class ClientsIndex extends Component
                         ->orWhere('email', 'LIKE', '%'.$this->search.'%')
                         ->orWhere('cel', 'LIKE', '%'.$this->search.'%')
                         ->paginate(20);
+        /* Main view w/params */
         return view('livewire.admin.clients.clients-index', ['items' => $items])
                     ->extends('layouts.app')
                     ->section('content');
     }
 
-    /* show-form */
+    /* show-form [create] */
     public function showForm(){
+        /* RESET params */
         $this->resetUI();
         $this->formOpen = true;
     }
@@ -60,25 +64,27 @@ class ClientsIndex extends Component
         /* store record */
         try {
             $client = Client::create([
-                                    'name' => $this->name,
-                                    'address' => $this->address, 
-                                    'email' => $this->email, 
-                                    'rfc' => $this->rfc, 
-                                    'cel' => $this->cel, 
-                                    'phone' => $this->phone,
+                                        'name' => $this->name,
+                                        'address' => $this->address, 
+                                        'email' => $this->email, 
+                                        'rfc' => $this->rfc, 
+                                        'cel' => $this->cel, 
+                                        'phone' => $this->phone,
                                     ]);
             /* Toast */
             $this->emit('toast-message', ['msg' => 'Cliente ['.$client->name.'] creado correctamente!', 'icon' => 'success']);
-            
         } catch (Exception $ex) {
             $this->emit('toast-message', ['msg' => $ex->getMessage(), 'icon' => 'error']);
         }
+        /* RESET params */
         $this->resetUI();
     }
 
     /* show Form [with Info] */
     public function edit(Client $client){
+        /* RESET params */
         $this->resetUI();
+        /* SET params */
         $this->selectedId = $client->id;
         $this->name = $client->name; 
         $this->address = $client->address; 

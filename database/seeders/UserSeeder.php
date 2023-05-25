@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('asdasdasd'),
             'status' => 1,
             'level' => 'SuperAdmin',
-            //'branch_office_id' => 1,
+            'branch_office_id' => 1,
         ])->assignRole('SuperAdmin');
         
         User::Create([
@@ -32,8 +32,9 @@ class UserSeeder extends Seeder
             'cel' => '653',
             'password' => Hash::make('asdasdasd'),
             'status' => 1,
-            'level' => 'Cashier',
-        ])->assignRole('Cashier'); 
+            'level' => 'Cajero',
+            'branch_office_id' => 1,
+        ])->assignRole('Cajero'); 
         //User::factory(4)->create();
     }
 }

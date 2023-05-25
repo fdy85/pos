@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Cashouts;
+namespace App\Http\Livewire\Admin\Sales;
 
+use App\Models\Client;
 use App\Models\Sale;
 use App\Models\User;
 use Livewire\Component;
@@ -16,7 +17,7 @@ class SeekSalesByCashier extends Component
     public function render()
     {
         $cashiers = User::where('status', true)->get();
-        return view('livewire.admin.cashouts.seek-sales-by-cashier', ['cashiers' => $cashiers]);
+        return view('livewire.admin.sales.seek-sales-by-cashier', ['cashiers' => $cashiers]);
     }
 
     public function getSales(){
@@ -37,7 +38,7 @@ class SeekSalesByCashier extends Component
         $moneySum = $sales->sum('total');
         $qtySum = $sales->sum('qty');
 
-        $this->emitTo('admin.cashouts.cashouts-index', 'getSalesByCashier', $sales, $moneySum, $qtySum);
+        $this->emitTo('admin.sales.sales-index', 'getSalesByCashier', $sales, $moneySum, $qtySum);
 
     }
 

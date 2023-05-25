@@ -9,7 +9,7 @@ class Brand extends Model
 {
     use HasFactory;
 
-    protected $filable = ['name'];
+    protected $fillable = ['name', 'slug', 'status'];
 
     //Many to Many relationship
     public function categories(){

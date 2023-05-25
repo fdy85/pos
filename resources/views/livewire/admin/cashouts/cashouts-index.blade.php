@@ -1,75 +1,67 @@
-@inject('carbon', '\Carbon\Carbon')
 <div class="w-full">
-    <x-common.main-content sucursal='Sucursal' >
+    <x-common.main-content sucursal='{{ auth()->user()->branchOffice->name }}' >
         <x-slot name="content">
-            <x-common.component-index-header title="{{ $title }}" />
+            <x-common.component-index-header title="{{ $title }}" add="{{ $add }}"  />
 
-            @livewire('admin.cashouts.seek-sales-by-cashier')
+            <x-common.searchBar />
 
-            <div class="mx-6 b-divider"></div>
-
-            <div class="flex w-full my-4">
-                <div class="w-1/4">
-                    <div class="flex-col bg-sky-800 mx-4 text-white rounded-lg">
-                        <div class="flex justify-between mx-4 pt-4 pb-1">
-                            <span>Ventas Totales:</span>
-                            @if (count($items))
-                            <strong class="text-lg">$ {{ number_format($salesTotalMoney, 2, '.', ',') }}</strong>
-                            @endif
-                        </div>
-                        <div class="flex justify-between mx-4 pt-1 pb-4">
-                            <span>Total de Artículos:</span>
-                            @if (count($items))
-                            <strong class="text-lg">{{ $salesTotalQty }}</strong>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="w-3/4">
-                    @if (count($items))
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Folio</th>
-                                <th  class="text-center">Totals</th>
-                                <th  class="text-center">Artículos</th>
-                                <th  class="text-center">Estatus</th>
-                                <th  class="text-center">Fecha</th>
-                                <th  class="text-center">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($items as $item)
-                            <tr>
-                                <td>{{ $item['id'] }}</td>
-                                <td  class="text-center">${{ number_format($item['total'], 2, '.', ',') }}</td>
-                                <td  class="text-center">{{ $item['qty'] }}</td>
-                                <td  class="text-center">{{ $item['status'] }}</td>
-                                <td  class="text-center">{{ $carbon::parse($item['created_at'])->format('d-m-Y')  }}</td>
+            @if ($items->count())
+            {{-- card -table --}}
+            <div class="mx-2">
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Corte</th>
+                            <th  class="text-center">Caja Registradora</th>
+                            <th  class="text-center">Apertura</th>
+                            <th  class="text-center">Total</th>
+                            <th  class="text-center" colspan="2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($items as $item)
+                        <tr>
+                            <td>
+                                <div class="flex justify-between items-center">
+                                    <span>{{ $item->date }}</span>
+                                    {{-- Call status component --}}
+                                <x-common.item-cashout-status :status="$item->status" />
+                                </div>
+                            </td>
+                            <td  class="text-center">{{ $item->cashRegister->name }}</td>
+                            <td  class="text-center">$ {{ $item->cash_start }}</td>
+                            <td  class="text-center">$ {{ $item->total }}</td>
+                            <td colspan="2" class="table-actions items-center">
+                            {{-- Actions --}}
+                                @if (!$item['status'])
+                                <x-common.basic-item-actions :itemId="$item->id" editPermission="admin.users.edit" destroyPermission="admin.users.destroy" />    
+                                @endif
                                 
-                                <td>
-                                {{-- Actions --}}
-                                    <a wire:click.prevent="showDetailsForm({{ $item['id'] }})" class="px-4 h-full flex justify-center items-center text-sky-900 cursor-pointer font-semibold" title="Venta # {{ $item['id'] }}">
-                                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                            <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                        </svg>
-                                    </a>
-                                </td>
-                            </tr>  
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @else
-                    <div>
-                        <span class="text-lg text-sky-800">Buscar ventas por Cajero y rango de fechas</span>
-                    </div>
-                    @endif
-                    
-                </div>
+                                <a wire:click.prevent="showDetailsForm({{ $item->id }})" class="px-4 h-full flex justify-center items-center text-sky-900 cursor-pointer font-semibold" 
+                                    title="Corte # {{ $item['date'] }}">
+                                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                        <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>  
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+        {{-- Links --}}
+            <div class="flex justify-start">
+                {{ $items->links() }}
+            </div>
+            @else
+            <div class="divider">
+                <x-common.no-items-found />
+            </div>
+            @endif
         </x-slot>
     </x-common.main-content>
-
-    {{-- Modal --}}
+{{-- Modal --}}
     @include('livewire.admin.cashouts.partials.form')
+    @include('livewire.admin.cashouts.partials.form-details')
 </div>

@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class CompaniesIndex extends Component
 {
+    /* Params */
     public $title, $add, $selectedId, 
             $name, $address, $rfc, $status, 
             $formOpen;
@@ -22,7 +23,7 @@ class CompaniesIndex extends Component
     public function render()
     {
         $items = Company::where('status', true)->get();
-
+        /* Main view w/params */
         return view('livewire.admin.companies.companies-index',['items' => $items])
                 ->extends('layouts.app')
                 ->section('content');
@@ -30,7 +31,9 @@ class CompaniesIndex extends Component
 
     /* Show Form [with Info] */
     public function edit(Company $company){
+        /* RESET params */
         $this->resetUI();
+        /* SET params */
         $this->selectedId = $company->id;
         $this->name = $company->name;
         $this->address = $company->address; 
@@ -45,28 +48,31 @@ class CompaniesIndex extends Component
         $company = Company::find($this->selectedId);
         /* Validation */
         $rules = ['name' => 'required',
-                    'address' => 'required',
-                    'rfc' => 'required'];
+                'address' => 'required',
+                'rfc' => 'required'];
         $messages = ['name.required' => 'El nombre de la Empresa es requerido',
                     'address.required' => 'La dirección de la Empresa es requerida',
                     'rfc.required' => 'El RFC de la Empresa es requerido'];
         $this->validate($rules, $messages);
         /* Update */
         try{
-            $company->update(['name' => $this->name,
+            $company->update([
+                            'name' => $this->name,
                             'address' => $this->address,
-                            'rfc' => 'required']);
+                            'rfc' => 'required'
+                            ]);
             /* Toast */
             $this->emit('toast-message', ['msg' => 'Información de Empresa Actualizada!', 'icon' => 'success']);
         } catch (Exception $ex) {
             $this->emit('toast-message', ['msg' => $ex->getMessage(), 'icon' => 'error']);
         }
+        /* RESET params */
         $this->resetUI();
     }
 
+    /* Reset params */
     public function resetUI(){
-        $this->reset(['selectedId', 
-                    'name', 'address', 'rfc', 'status',
+        $this->reset(['selectedId', 'name', 'address', 'rfc', 'status',
                     'formOpen']);
     }
 

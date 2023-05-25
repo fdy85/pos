@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Livewire\Admin\Branchoffices\BranchofficesIndex;
+use App\Http\Livewire\Admin\Brands\BrandsIndex;
 use App\Http\Livewire\Admin\Cashouts\CashoutsIndex;
+use App\Http\Livewire\Admin\CashRegisters\CashRegistersIndex;
 use App\Http\Livewire\Admin\Categories\CategoriesIndex;
 use App\Http\Livewire\Admin\Clients\ClientsIndex;
 use App\Http\Livewire\Admin\Companies\CompaniesIndex;
@@ -9,6 +11,7 @@ use App\Http\Livewire\Admin\Pos\Pos;
 use App\Http\Livewire\Admin\Products\ProductsIndex;
 use App\Http\Livewire\Admin\Providers\ProvidersIndex;
 use App\Http\Livewire\Admin\Roles\RolesIndex;
+use App\Http\Livewire\Admin\Sales\SalesIndex;
 use App\Http\Livewire\Admin\Users\UsersIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +47,18 @@ Route::get('/users', UsersIndex::class)
 Route::get('/roles', RolesIndex::class)
             ->name('admin.roles.index');
 
+/* Clients */
+Route::get('/clients', ClientsIndex::class)
+->name('admin.clients.index');
+
+/* Providers */
+Route::get('/providers', ProvidersIndex::class)
+->name('admin.providers.index');
+
+/* Brands */
+Route::get('/brands', BrandsIndex::class)
+->name('admin.brands.index');
+
 /* Categories */
 Route::get('/categories', CategoriesIndex::class)
             ->name('admin.categories.index');
@@ -52,25 +67,22 @@ Route::get('/categories', CategoriesIndex::class)
 Route::get('/products', ProductsIndex::class)
             ->name('admin.products.index');
 
-/* Pos */
-Route::get('/pos', Pos::class)
-            ->name('admin.pos');
-
-/* Route::get('/sale/print-ticket', PrintTicket::class)
-            ->name('admin.pos.printTicket'); */
-
-Route::get('/sale/print-ticket', function () {
-    return view('livewire.admin.pos.ticket');
-});
-
-/* Clients */
-Route::get('/clients', ClientsIndex::class)
-            ->name('admin.clients.index');
-
-/* Clients */
-Route::get('/providers', ProvidersIndex::class)
-            ->name('admin.providers.index');
+/* CashRegisters */
+Route::get('/cash-registers', CashRegistersIndex::class)
+->name('admin.cash-registers.index');
 
 /* CashOuts */
 Route::get('/cashouts', CashoutsIndex::class)
 ->name('admin.cashouts.index');
+
+/* Pos */
+Route::get('/pos', Pos::class)
+    ->name('admin.pos');
+Route::get('/sale/print-ticket', function () {
+    return view('livewire.admin.pos.ticket');
+});
+
+/* Sales */
+Route::get('/sales', SalesIndex::class)
+->name('admin.sales.index');
+

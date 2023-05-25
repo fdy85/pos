@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:model="formOpen">
+<x-dialog-modal wire:model="formOpen">
         <x-slot name="title">
             <div class="b-divider">
                 {{ $title}} | {{$selectedId==0?'CREAR':'ACTUALIZAR' }}
@@ -9,10 +9,10 @@
         <x-slot name="content">
             <div class="flex my-3 justify-between items-center">
                 <div @if ($selectedId > 0) class="flex-col w-full md:w-1/2 mr-2" @else class="flex-col w-full" @endif>
-                    <x-jet-label value="Nombre del Usuario" />
-                    <x-jet-input type="text" wire:model.lazy="name" placeholder="Nombred Usuario" class="form-input" />
+                    <x-label value="Nombre del Usuario" />
+                    <x-input type="text" wire:model.lazy="name" placeholder="Nombred Usuario" class="form-input" />
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="name" />
+                    <x-input-error for="name" />
                 </div>
                 @if ($selectedId > 0)
                 <div class="flex-col md:flex border-l-2 md:border-none">
@@ -32,26 +32,26 @@
             </div>
             
             <div class="my-3">
-                <x-jet-label value="Dirección" />
-                <x-jet-input type="text" wire:model.lazy="address" placeholder="Dirección" class="form-input" />
+                <x-label value="Dirección" />
+                <x-input type="text" wire:model.lazy="address" placeholder="Dirección" class="form-input" />
             {{-- Error Msg by Validation --}}        
-                <x-jet-input-error for="address" />
+                <x-input-error for="address" />
             </div>
 
             <div class="my-3">
-                <x-jet-label value="E-mail" />
-                <x-jet-input type="text" wire:model.lazy="email" placeholder="E-mail" class="form-input" />
+                <x-label value="E-mail" />
+                <x-input type="text" wire:model.lazy="email" placeholder="E-mail" class="form-input" />
             </div>
             <div class="my-3">
-                <x-jet-label value="RFC" />
-                <x-jet-input type="text" wire:model.lazy="rfc" placeholder="RFC" class="form-input" />
+                <x-label value="RFC" />
+                <x-input type="text" wire:model.lazy="rfc" placeholder="RFC" class="form-input" />
             </div>
             <div class="my-3">
-                <x-jet-label value="Celular" />
-                <x-jet-input type="text" wire:model.lazy="cel" placeholder="Celular" class="form-input" />
+                <x-label value="Celular" />
+                <x-input type="text" wire:model.lazy="cel" placeholder="Celular" class="form-input" />
             </div><div class="my-3">
-                <x-jet-label value="Teléfono" />
-                <x-jet-input type="text" wire:model.lazy="phone" placeholder="Teléfono" class="form-input" />
+                <x-label value="Teléfono" />
+                <x-input type="text" wire:model.lazy="phone" placeholder="Teléfono" class="form-input" />
             </div>
             
             @if ($selectedId > 0 && $status == 0)
@@ -65,4 +65,4 @@
             {{-- Common form actions --}}
             <x-common.modal-footer-buttons />
         </x-slot>
-</x-jet-dialog-modal>
+</x-dialog-modal>

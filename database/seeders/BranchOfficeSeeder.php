@@ -19,15 +19,13 @@ class BranchOfficeSeeder extends Seeder
         BranchOffice::create([
             'name' => 'Globitos y Más',
             'address' => 'Nuevo León y 25 #2500',
-            'phone' => '6531192629',            
-            'modified_by' => 1,
+            'phone' => '6531192629',
             'company_id' =>1,
         ]);
         BranchOffice::create([
             'name' => 'Globitos y Más Centro',
             'address' => 'Obregón y 7 #700',
-            'phone' => '6535346510',            
-            'modified_by' => 1,
+            'phone' => '6535346510',
             'company_id' =>1,
         ]);
     }

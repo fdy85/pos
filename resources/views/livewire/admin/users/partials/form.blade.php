@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:model="formOpen">
+<x-dialog-modal wire:model="formOpen">
         <x-slot name="title">
             <div class="b-divider">
                 {{ $title}} | {{$selectedId==0?'CREAR':'ACTUALIZAR' }}
@@ -9,10 +9,10 @@
         <x-slot name="content">
             <div class="flex my-3 justify-between items-center">
                 <div @if ($selectedId > 0) class="flex-col w-full md:w-1/2 mr-2" @else class="flex-col w-full" @endif>
-                    <x-jet-label value="Nombre del Usuario" />
-                    <x-jet-input type="text" wire:model.lazy="name" placeholder="Nombred Usuario" class="form-input" />
+                    <x-label value="Nombre del Usuario" />
+                    <x-input type="text" wire:model.lazy="name" placeholder="Nombred Usuario" class="form-input" />
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="name" />
+                    <x-input-error for="name" />
                 </div>
                 @if ($selectedId > 0)
                 <div class="flex-col md:flex border-l-2 md:border-none">
@@ -32,17 +32,17 @@
             </div>
             
             <div class="my-3">
-                <x-jet-label value="E-mail" />
-                <x-jet-input type="text" wire:model.lazy="email" placeholder="E-mail" class="form-input" />
+                <x-label value="E-mail" />
+                <x-input type="text" wire:model.lazy="email" placeholder="E-mail" class="form-input" />
             {{-- Error Msg by Validation --}}        
-                <x-jet-input-error for="email" />
+                <x-input-error for="email" />
             </div>
             <div class="my-3">
-                <x-jet-label value="Celular" />
-                <x-jet-input type="text" wire:model.lazy="cel" placeholder="Celular" class="form-input" />
+                <x-label value="Celular" />
+                <x-input type="text" wire:model.lazy="cel" placeholder="Celular" class="form-input" />
             </div>
             <div class="my-3">
-                <x-jet-label value="Role para el usuario" />
+                <x-label value="Role para el usuario" />
                 <select wire:model.lazy="role" class="form-input">
                     <option value="" selected >Tipo de Role</option>
                     @foreach ($roles as $role)
@@ -50,15 +50,28 @@
                     @endforeach
                 </select>
             {{-- Error Msg by Validation --}}        
-                <x-jet-input-error for="role" />
+                <x-input-error for="role" />
             </div>
+            
+            <div class="my-3">
+                <x-label value="Sucursal para el usuario" />
+                <select wire:model.lazy="branchOfficeId" class="form-input" @if($branchOfficeId == null) disabled @endif>
+                    <option value="1" selected >Sucursal para el usuario</option>
+                    @foreach ($branchOffices as $branchOffice)
+                    <option value="{{ $branchOffice->id }}" >{{ $branchOffice->name }}</option>
+                    @endforeach
+                </select>
+            {{-- Error Msg by Validation --}}        
+                <x-input-error for="branchOfficeId" />
+            </div>
+            
             <div class="my-3">
                 @if ($selectedId == 0)
-                <x-jet-label value="Contraseña" />
-                <x-jet-input type="password" wire:model.lazy="password" placeholder="Contraseña" class="form-input" />
+                <x-label value="Contraseña" />
+                <x-input type="password" wire:model.lazy="password" placeholder="Contraseña" class="form-input" />
                 @endif
             {{-- Error Msg by Validation --}}        
-                <x-jet-input-error for="password" />
+                <x-input-error for="password" />
             </div>
             @if ($selectedId > 0 && $status == 0)
             <div>
@@ -71,4 +84,4 @@
             {{-- Common form actions --}}
             <x-common.modal-footer-buttons />
         </x-slot>
-</x-jet-dialog-modal>
+</x-dialog-modal>

@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'description', 'barcode', 'cost', 'price', 'qty', 'alert', 'status', 'brand_id', 'category_id'];
+    protected $fillable = ['name', 'slug', 'description', 'barcode', 'type', 'cost', 'price', 'qty', 'low_stock', 'status', 'brand_id', 'category_id'];
 
     //Inverse One to Many relationship
     public function brand(){

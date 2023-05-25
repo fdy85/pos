@@ -22,10 +22,10 @@ return new class extends Migration
             $table->string('phone2', 15)->nullable();
             $table->tinyInteger('status')->default(1);
             
-            $table->unsignedBigInteger('modified_by');
+            //$table->unsignedBigInteger('modified_by');
             $table->unsignedBigInteger('company_id');
 
-            $table->foreign('modified_by')->references('id')->on('users');
+            //$table->foreign('modified_by')->references('id')->on('users');
             $table->foreign('company_id')->references('id')->on('companies');
 
             $table->timestamps();

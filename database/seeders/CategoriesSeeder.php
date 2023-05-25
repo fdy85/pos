@@ -20,6 +20,11 @@ class CategoriesSeeder extends Seeder
         //
         $categories = [
             [
+            'name' => 'Servicios',
+            'slug' =>  Str::slug('Servicios'),
+            'icon' => '<i class="fas fa-th-large"></i>'
+            ],
+            [
             'name' => 'Fiesta',
             'slug' =>  Str::slug('Fiesta'),
             'icon' => '<i class="fas fa-th-large"></i>'
@@ -39,6 +44,7 @@ class CategoriesSeeder extends Seeder
             'slug' =>  Str::slug('Serigrafía'),
             'icon' => '<i class="fas fa-th-large"></i>'
             ],
+            
         ];
 
 

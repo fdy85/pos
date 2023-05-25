@@ -9,8 +9,10 @@ use Livewire\WithPagination;
 
 class ProvidersIndex extends Component
 {
+    /* Pagination */
     use WithPagination;
 
+    /* Params */
     public $title, $add, $selectedId, $name, $address, $email, $rfc, $cel, $phone, $status, $search,  $formOpen;
 
     public function mount(){
@@ -36,13 +38,15 @@ class ProvidersIndex extends Component
                         ->orWhere('rfc', 'LIKE', '%'.$this->search.'%')
                         ->orWhere('cel', 'LIKE', '%'.$this->search.'%')
                         ->paginate(20);
+        /* Main view w/params */
         return view('livewire.admin.providers.providers-index', ['items' => $items])
                     ->extends('layouts.app')
                     ->section('content');
     }
 
-    /* show-form */
+    /* show-form [create] */
     public function showForm(){
+        /* RESET params */
         $this->resetUI();
         $this->formOpen = true;
     }
@@ -51,42 +55,44 @@ class ProvidersIndex extends Component
     public function store(){
         /* validation */
         $rules = ['name' => 'required|min:6',
-                'address' => 'required',
-                'email' => 'required|email',
-                'rfc' => 'required',
-                'cel' => 'required',
+                    'address' => 'required',
+                    'email' => 'required|email',
+                    'rfc' => 'required',
+                    'cel' => 'required',
                 ];
         $messages = ['name.required' => 'El nombre es requerido',
-                    'name.min' => 'El nombre debe contener al menos 6 caracteres',
-                    'address.required' => 'La direccón del cliente es requerida',
-                    'email.required' => 'El correo Electronico es requerido',
-                    'email.email' => 'El correo electronico debe tener formato de Correo Electronico',
-                    'rfc.required' => 'El RFC del proveedor es requerido',
-                    'cel.required' => 'El Cel del proveedor es requerido',
+                        'name.min' => 'El nombre debe contener al menos 6 caracteres',
+                        'address.required' => 'La direccón del cliente es requerida',
+                        'email.required' => 'El correo Electronico es requerido',
+                        'email.email' => 'El correo electronico debe tener formato de Correo Electronico',
+                        'rfc.required' => 'El RFC del proveedor es requerido',
+                        'cel.required' => 'El Cel del proveedor es requerido',
                     ];
         $this->validate($rules, $messages);
         /* store record */
         try {
             $provider = Provider::create([
-                                    'name' => $this->name,
-                                    'address' => $this->address, 
-                                    'email' => $this->email, 
-                                    'rfc' => $this->rfc, 
-                                    'cel' => $this->cel, 
-                                    'phone' => $this->phone,
-                                    ]);
+                                            'name' => $this->name,
+                                            'address' => $this->address, 
+                                            'email' => $this->email, 
+                                            'rfc' => $this->rfc, 
+                                            'cel' => $this->cel, 
+                                            'phone' => $this->phone,
+                                        ]);
             /* Toast */
             $this->emit('toast-message', ['msg' => 'Proveedor ['.$provider->name.'] creado correctamente!', 'icon' => 'success']);
-            
         } catch (Exception $ex) {
             $this->emit('toast-message', ['msg' => $ex->getMessage(), 'icon' => 'error']);
         }
+        /* RESET params */
         $this->resetUI();
     }
 
     /* show Form [with Info] */
     public function edit(Provider $provider){
+        /* RESET params */
         $this->resetUI();
+        /* SET params */
         $this->selectedId = $provider->id;
         $this->name = $provider->name; 
         $this->address = $provider->address; 
@@ -102,18 +108,18 @@ class ProvidersIndex extends Component
     public function update(){
         /* Validation */
         $rules = ['name' => 'required|min:6',
-                'address' => 'required',
-                'email' => 'required|email',
-                'rfc' => 'required',
-                'cel' => 'required',
+                    'address' => 'required',
+                    'email' => 'required|email',
+                    'rfc' => 'required',
+                    'cel' => 'required',
                 ];
         $messages = ['name.required' => 'El nombre es requerido',
-                    'name.min' => 'El nombre debe contener al menos 6 caracteres',
-                    'address.required' => 'La direccón del cliente es requerida',
-                    'email.required' => 'El correo Electronico es requerido',
-                    'email.email' => 'El correo electronico debe tener formato de Correo Electronico',
-                    'rfc.required' => 'El RFC del proveedor es requerido',
-                    'cel.required' => 'El Cel del proveedor es requerido',
+                        'name.min' => 'El nombre debe contener al menos 6 caracteres',
+                        'address.required' => 'La direccón del cliente es requerida',
+                        'email.required' => 'El correo Electronico es requerido',
+                        'email.email' => 'El correo electronico debe tener formato de Correo Electronico',
+                        'rfc.required' => 'El RFC del proveedor es requerido',
+                        'cel.required' => 'El Cel del proveedor es requerido',
                     ];
         $this->validate($rules, $messages);
         /* find record */
@@ -121,18 +127,19 @@ class ProvidersIndex extends Component
         /* update record */
         try{
             $provider->update([
-                            'name' => $this->name,
-                            'address' => $this->address, 
-                            'email' => $this->email, 
-                            'rfc' => $this->rfc, 
-                            'cel' => $this->cel, 
-                            'phone' => $this->phone,
+                                'name' => $this->name,
+                                'address' => $this->address, 
+                                'email' => $this->email, 
+                                'rfc' => $this->rfc, 
+                                'cel' => $this->cel, 
+                                'phone' => $this->phone,
                             ]);
             /* Toast */
             $this->emit('toast-message', ['msg' => 'Información del Proveedor ['.$provider->name.'] fue Actualizada!', 'icon' =>'success']);
         } catch (Exception $ex) {
             $this->emit('toast-message', ['msg' => $ex->getMessage(), 'icon' => 'error']);
         }
+        /* RESET params */
         $this->resetUI();
     }
 
@@ -140,12 +147,11 @@ class ProvidersIndex extends Component
     public function destroy(Provider $provider){
         try{
             $provider->delete();
-            $this->emit('toast-message', ['msg' => 'Proveedor Eliminado', 'icon' =>'success']);
-            
-            
+            $this->emit('toast-message', ['msg' => 'Proveedor Eliminado', 'icon' =>'success']);  
         } catch (Exception $ex) {
             $this->emit('toast-message', ['msg' => $ex->getMessage(), 'icon' => 'error']);
         } 
+        /* RESET params */
         $this->resetUI();
     }
 

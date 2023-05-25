@@ -16,6 +16,10 @@ class ClientSeeder extends Seeder
     public function run()
     {
         //
+        Client::create([
+            'name' => 'Público en General',
+            'address' => 'SLRC',
+        ]);
         Client::factory(30)->create();
     }
 }

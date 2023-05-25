@@ -1,5 +1,5 @@
 <div class="w-full">
-    <x-common.main-content sucursal='Sucursal' >
+    <x-common.main-content sucursal='{{ auth()->user()->branchOffice->name }}' >
         <x-slot name="content">
             <x-common.component-index-header title="{{ $title }}" add="{{ $add }}"  />
 
@@ -27,7 +27,7 @@
                         @foreach ($items as $item)
                         <tr>
                             <td>{{ $item->name }}</td>
-                            <td  class="text-center">{{ substr($item->description, 0, 11) }}..</td>
+                            <td  class="text-center">{{ substr($item->description, 0, 20) }} @if ( Str::length($item->description) > 20) .. @endif </td>
                             <td  class="text-center">
                                 @if ($item->images->count())
                                 <img class="w-14 max-h-20 object-cover object-center" src="{{ Storage::url($item->images[0]->url) }}" alt="img">    
@@ -60,7 +60,7 @@
             </div>
             @else
             <div class="divider">
-                No hay Elementos para mostrar
+                <x-common.no-items-found />
             </div>
             @endif
         </x-slot>

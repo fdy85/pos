@@ -39,6 +39,7 @@
             myReceiptWindow.document.title = "Imprimir Ticket";
             myReceiptWindow.focus();
         })
+
     </script>
 </div>
 

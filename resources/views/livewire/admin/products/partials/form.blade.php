@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:model="formOpen">
+<x-dialog-modal wire:model="formOpen">
         <x-slot name="title">
             <div class="b-divider">
                 {{ $title}} | {{$selectedId==0?'CREAR':'ACTUALIZAR' }}
@@ -8,10 +8,10 @@
         <x-slot name="content">
             <div class="flex my-3 justify-between items-center">
                 <div @if ($selectedId > 0) class="flex-col w-3/4 mr-2" @else class="flex-col w-full" @endif>
-                    <x-jet-label value="Nombre del Producto" />
-                    <x-jet-input type="text" wire:model="name" placeholder="Nombre del Producto" class="form-input" />
+                    <x-label value="Nombre del Producto" />
+                    <x-input type="text" wire:model="name" placeholder="Nombre del Producto" class="form-input" />
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="name" />
+                    <x-input-error for="name" />
                 </div>
                 @if ($selectedId > 0)
                 <div class="flex-col border-l-2 md:border-none">
@@ -33,7 +33,7 @@
 
             <div class="flex my-3">
                 <div class=" w-full">
-                    <x-jet-label value="Categoría" />
+                    <x-label value="Categoría" />
                     <select wire:model.lazy="categoryId" wire:change="setBrands" class="form-input">
                         <option value="null" selected disabled >Categoría</option>
                         @foreach ($categories as $category)
@@ -41,31 +41,31 @@
                         @endforeach
                     </select>
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="categoryId" />
+                    <x-input-error for="categoryId" />
                 </div>
             </div>
 
             <div class="flex my-3">
                 <div class=" w-full">
-                    <x-jet-label value="Descripción del Producto" />
-                    <x-jet-input type="text" wire:model="description" placeholder="Descripción del Producto" class="form-input" />
+                    <x-label value="Descripción del Producto" />
+                    <x-input type="text" wire:model="description" placeholder="Descripción del Producto" class="form-input" />
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="description" />
+                    <x-input-error for="description" />
                 </div>
             </div>
 
             <div class="flex my-3">
                 <div class=" w-full">
-                    <x-jet-label value="Código de Barras para del Producto" />
-                    <x-jet-input type="text" wire:model="barcode" placeholder="Código de Barras para del Producto" class="form-input" />
+                    <x-label value="Código de Barras para del Producto" />
+                    <x-input type="text" wire:model="barcode" placeholder="Código de Barras para del Producto" class="form-input" />
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="barcode" />
+                    <x-input-error for="barcode" />
                 </div>
             </div>
 
             <div class="flex my-3">
                 <div class="flex-col w-1/4 mr-2">
-                    <x-jet-label value="Costo" />
+                    <x-label value="Costo" />
                     <div class="flex w-full">
                         <span class="flex items-center whitespace-nowrap rounded-l border border-r-0 border-solid border-neutral-300 px-1 md:px-3 py-[0.25rem] text-center text-xs md:text font-normal leading-[1.6] text-neutral-700 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200">
                             $
@@ -73,21 +73,10 @@
                         <input class="form-input" type="number" step=".01" wire:model="cost" placeholder="Costo" >
                     </div>
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="cost" />
+                    <x-input-error for="cost" />
                 </div>
                 <div class="flex-col w-1/4 mx-1">
-                    <x-jet-label value="Cantidad" />
-                    <div class="flex w-full">
-                        <span class="flex items-center whitespace-nowrap rounded-l border border-r-0 border-solid border-neutral-300 px-1 md:px-3 py-[0.25rem] text-center text-xs md:text font-normal leading-[1.6] text-neutral-700 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200">
-                            $
-                        </span>
-                        <input class="form-input" type="number" step=".01" wire:model="qty" placeholder="Cantidad">
-                    </div>
-                {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="qty" />
-                </div>
-                <div class="flex-col w-1/4 mx-1">
-                    <x-jet-label value="Precio" />
+                    <x-label value="Precio" />
                     <div class="flex w-full">
                         <span class="flex items-center whitespace-nowrap rounded-l border border-r-0 border-solid border-neutral-300 px-1 md:px-3 py-[0.25rem] text-center text-xs md:text font-normal leading-[1.6] text-neutral-700 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200">
                             $
@@ -95,19 +84,25 @@
                         <input class="form-input" type="number" step=".01" wire:model="price" placeholder="Cantidad">
                     </div>
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="price" />
+                    <x-input-error for="price" />
+                </div>
+                <div class="flex-col w-1/4 mx-1">
+                    <x-label value="Cantidad" />
+                    <input class="form-input" type="number" step=".01" wire:model="qty" placeholder="Cantidad">
+                {{-- Error Msg by Validation --}}        
+                    <x-input-error for="qty" />
                 </div>
                 <div class="flex-col w-1/4 ml-2">
-                    <x-jet-label value="Alerta" />
-                    <x-jet-input type="number" step="1" wire:model="alert" placeholder="Alerta" class="form-input" />
+                    <x-label value="Alerta de Existencias" />
+                    <x-input type="number" step="1" wire:model="lowStock" placeholder="Alerta" class="form-input" />
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="alert" />
+                    <x-input-error for="lowStock" />
                 </div>
             </div>
 
             <div class="flex my-3">
                 <div class=" w-full">
-                    <x-jet-label value="Marca" />
+                    <x-label value="Marca" />
                     <select wire:model.lazy="brandId" class="form-input">
                         <option value="null" selected disabled >Marca</option>
                         @foreach ($brands as $brand)
@@ -115,16 +110,16 @@
                         @endforeach
                     </select>
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="brandId" />
+                    <x-input-error for="brandId" />
                 </div>
             </div>
 
             <div class="flex my-3">
                 <div class="w-full">
-                    <x-jet-label value="Imagen" />
-                    <x-jet-input type="file" class="form-input" />
+                    <x-label value="Imagen" />
+                    <x-input type="file" class="form-input" />
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="image" />
+                    <x-input-error for="image" />
                 </div>
             </div>
             @if ($selectedId > 0 && $status == 0)
@@ -138,4 +133,4 @@
             {{-- Common form actions --}}
             <x-common.modal-footer-buttons />
         </x-slot>
-</x-jet-dialog-modal>
+</x-dialog-modal>

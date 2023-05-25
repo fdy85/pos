@@ -1,5 +1,5 @@
 <div class="w-full">
-    <x-common.main-content sucursal='Sucursal' >
+    <x-common.main-content sucursal='{{ auth()->user()->branchOffice->name }}' >
         <x-slot name="content">
             <x-common.component-index-header title="{{ $title }}" add="{{ $add }}" />
 

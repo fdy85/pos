@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 
 class RolesIndex extends Component
 {
+    /* Params */
     public $title, $add, $selectedId, $name, $rolePermissions = [], 
             $search, $formOpen;
 
@@ -23,12 +24,11 @@ class RolesIndex extends Component
     public function render()
     {
         $items = Role::all();
-        //$categories = ;
+        /* Get Permissions's Category */
         $cats = array_unique(Permission::orderBy('category', 'ASC')->get()->pluck('category')->toArray());
-        //dd($cats);
+        /* Get Permissions */
         $permissions = Permission::all('id', 'name', 'desc', 'category')->toArray();
-        //dd($this->permissions);
-        //dd($this->permissions);
+        /* Main view w/params */
         return view('livewire.admin.roles.roles-index', ['items' => $items,
                                                         'cats' => $cats,
                                                         'permissions' => $permissions])
@@ -36,10 +36,11 @@ class RolesIndex extends Component
                     ->section('content');
     }
 
-    /* Show Form */
+    /* Show Form [create]*/
     public function showForm(){
-            $this->resetUI();
-            $this->formOpen = true;
+        /* RESET params */
+        $this->resetUI();
+        $this->formOpen = true;
     }
     
     /* store record */
@@ -57,19 +58,22 @@ class RolesIndex extends Component
             } catch (Exception $ex) {
                 $this->emit('toast-message', ['msg' => $ex->getMessage(), 'icon' => 'error']);
             }
+            /* RESET params */
             $this->resetUI();
     }
     
     /* show Form [with Info] */
     public function edit(Role $role){
+        /* RESET params */
         $this->resetUI();
+        /* SET params */
         $this->selectedId = $role->id;
-    /* get Role's permissions */
+        $this->name = $role->name;
+        /* get Role's permissions */
         $arrs = $role->permissions;
         foreach($arrs as $arr){
             array_push($this->rolePermissions, $arr->id);
         }
-        $this->name = $role->name;
         $this->formOpen = true;  
     }
 
@@ -92,6 +96,7 @@ class RolesIndex extends Component
         } catch (Exception $ex) {
             $this->emit('toast-message', ['msg' => $ex->getMessage(), 'icon' => 'error']);
         }
+        /* RESET params */
         $this->resetUI();
     }
 
@@ -110,9 +115,11 @@ class RolesIndex extends Component
                 $this->emit('toast-message', ['msg' => $ex->getMessage(), 'icon' => 'error']);
             } 
         }
+        /* RESET params */
         $this->resetUI();
     }
 
+    /* RESET params */
     public function resetUI(){
         $this->reset(['selectedId', 'name', 'rolePermissions', 'search', 'formOpen']);
     }

@@ -1,5 +1,5 @@
 <div class="w-full">
-    <x-common.main-content sucursal='Sucursal' >
+    <x-common.main-content sucursal='{{ auth()->user()->branchOffice->name }}' >
         <x-slot name="content">
             <x-common.component-index-header title="{{ $title }}" add="{{ $add }}"  />
 
@@ -45,7 +45,7 @@
             </div>
             @else
             <div class="mx-4 mt-4 border-t-2 border-sky-700 text-lg">
-                No hay Elementos para mostrar
+                <x-common.no-items-found />
             </div>
             @endif
         </x-slot>

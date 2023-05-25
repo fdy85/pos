@@ -17,8 +17,8 @@ class RoleSeeder extends Seeder
     {
         //
         $rol1 = Role::create(['name' => 'SuperAdmin']);
-        $rol2 = Role::create(['name' => 'Customer']);
-        $rol3 = Role::create(['name' => 'Cashier']);
+        $rol2 = Role::create(['name' => 'Cajero']);
+        $rol3 = Role::create(['name' => 'Cliente']);
 
     /*//ADMIN - DASHBOARD
         Permission::create(['name' => 'admin.index',
@@ -71,6 +71,20 @@ class RoleSeeder extends Seeder
                             'desc' => 'Activar usuarios para utilizar la plataforma',
                             'category' => '.users'])->assignRole([$rol1]);
 
+    //ROLES
+        Permission::create(['name' => 'admin.roles.index',
+                            'desc' => 'Ver Listado de Roles',
+                            'category' => '.roles'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.roles.create',
+                            'desc' => 'Crear un Role',
+                            'category' => '.roles'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.roles.edit',
+                            'desc' => 'Editar un Role',
+                            'category' => '.roles'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.roles.destroy',
+                            'desc' => 'Deshabilitar un Role',
+                            'category' => '.roles'])->assignRole([$rol1]);
+
     //CLIENTS
         Permission::create(['name' => 'admin.clients.index',
                             'desc' => 'Ver Listado de Clientes',
@@ -99,6 +113,20 @@ class RoleSeeder extends Seeder
                             'desc' => 'Deshabilitar un Proveedor',
                             'category' => '.providers'])->assignRole([$rol1]);
 
+    //BRANDS
+        Permission::create(['name' => 'admin.brands.index',
+                            'desc' => 'Ver Listado de Marcas',
+                            'category' => '.brands'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.brands.create',
+                            'desc' => 'Crear una Marca',
+                            'category' => '.brands'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.brands.edit',
+                            'desc' => 'Editar una Marca',
+                            'category' => '.brands'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.brands.destroy',
+                            'desc' => 'Deshabilitar una Marca',
+                            'category' => '.brands'])->assignRole([$rol1]);
+
     //CATEGORIES
         Permission::create(['name' => 'admin.categories.index',
                             'desc' => 'Ver Listado de Categorías',
@@ -112,9 +140,9 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.categories.destroy',
                             'desc' => 'Deshabilitar una Categoría',
                             'category' => '.categories'])->assignRole([$rol1]);
-                            
+                
     //SUBCATEGORIES
-        Permission::create(['name' => 'admin.subcategories.index',
+        /* Permission::create(['name' => 'admin.subcategories.index',
                             'desc' => 'Ver Listado de Subcategorías',
                             'category' => '.subcategories'])->assignRole([$rol1]);
         Permission::create(['name' => 'admin.subcategories.create',
@@ -125,9 +153,9 @@ class RoleSeeder extends Seeder
                             'category' => '.subcategories'])->assignRole([$rol1]);
         Permission::create(['name' => 'admin.subcategories.destroy',
                             'desc' => 'Deshabilitar una Subcategoría',
-                            'category' => '.subcategories'])->assignRole([$rol1]);
+                            'category' => '.subcategories'])->assignRole([$rol1]); */
 
-                                //SUBCATEGORIES
+    //PRODUCTS
         Permission::create(['name' => 'admin.products.index',
                             'desc' => 'Ver Listado de Productos',
                             'category' => '.products'])->assignRole([$rol1]);
@@ -140,6 +168,51 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.products.destroy',
                             'desc' => 'Deshabilitar un Producto',
                             'category' => '.products'])->assignRole([$rol1]);
+                
+    //CASH REGISTERS
+        Permission::create(['name' => 'admin.cashregisters.index',
+                            'desc' => 'Ver Listado de Cajas Registradoras',
+                            'category' => '.cashregisters'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.cashregisters.create',
+                            'desc' => 'Crear una Caja Registradora',
+                            'category' => '.cashregisters'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.cashregisters.edit',
+                            'desc' => 'Editar una Caja Registradora',
+                            'category' => '.cashregisters'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.cashregisters.destroy',
+                            'desc' => 'Deshabilitar una Caja Registradora',
+                            'category' => '.cashregisters'])->assignRole([$rol1]);
+
+    //CASHOUTS
+        Permission::create(['name' => 'admin.cashouts.index',
+                            'desc' => 'Ver Listado de Cortes de caja',
+                            'category' => '.cashouts'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.cashouts.create',
+                            'desc' => 'Crear un Corte de Caja',
+                            'category' => '.cashouts'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.cashouts.edit',
+                            'desc' => 'Editar un Corte de Caja',
+                            'category' => '.cashouts'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.cashouts.destroy',
+                            'desc' => 'Eliminar un Corte de Caja',
+                            'category' => '.cashouts'])->assignRole([$rol1]);
+
+    //POS
+
+    //SALES
+        Permission::create(['name' => 'admin.sales.index',
+                            'desc' => 'Ver Listado de Ventas',
+                            'category' => '.sales'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.sales.find',
+                            'desc' => 'Buscar una venta',
+                            'category' => '.sales'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.sales.search',
+                            'desc' => 'Buscar ventas con rango de fechas',
+                            'category' => '.sales'])->assignRole([$rol1]);
+        Permission::create(['name' => 'admin.sales.destroy',
+                            'desc' => 'Cancelar una Venta',
+                            'category' => '.sales'])->assignRole([$rol1]);
+    
     }
     
 }

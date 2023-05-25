@@ -25,9 +25,11 @@ return new class extends Migration
             
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('client_id')->nullable();
+            $table->unsignedBigInteger('cashout_id')->nullable();
             
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
             $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('cashout_id')->references('id')->on('cashouts');
 
             $table->timestamps();
         });

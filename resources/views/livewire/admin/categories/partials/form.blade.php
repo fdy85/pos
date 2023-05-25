@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:model="formOpen">
+<x-dialog-modal wire:model="formOpen">
         <x-slot name="title">
             <div class="b-divider">
                 {{ $title}} | {{$selectedId==0?'CREAR':'ACTUALIZAR' }}
@@ -8,10 +8,10 @@
         <x-slot name="content">
             <div class="flex my-3 justify-between items-center">
                 <div @if ($selectedId > 0) class="flex-col w-3/4 mr-2" @else class="flex-col w-full" @endif>
-                    <x-jet-label value="Nombre de la Categoría" />
-                    <x-jet-input type="text" wire:model="name" placeholder="Nombre de la Categoría" class="form-input" />
+                    <x-label value="Nombre de la Categoría" />
+                    <x-input type="text" wire:model="name" placeholder="Nombre de la Categoría" class="form-input" />
                 {{-- Error Msg by Validation --}}        
-                    <x-jet-input-error for="name" />
+                    <x-input-error for="name" />
                 </div>
                 @if ($selectedId > 0)
                 <div class="flex-col border-l-2 md:border-none">
@@ -51,4 +51,4 @@
             {{-- Common form actions --}}
             <x-common.modal-footer-buttons />
         </x-slot>
-</x-jet-dialog-modal>
+</x-dialog-modal>

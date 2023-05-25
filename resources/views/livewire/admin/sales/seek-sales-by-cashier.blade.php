@@ -2,29 +2,29 @@
     <div class="flex justify-between">
         <div class="flex">
             <div class="flex-col mx-4">
-                <x-jet-label value="Cajeros" />
-                <select wire:model.lazy="cashierId" wire:change="getSales" class="form-input">
+                <x-label value="Cajero" />
+                <select wire:model="cashierId" class="form-input">
                     <option value="null" selected disabled >Seleccione un Cajero</option>
                     @foreach ($cashiers as $cashier)
                     <option value="{{ $cashier->id }}" >{{ $cashier->name }}</option>
                     @endforeach
                 </select>
             {{-- Error Msg by Validation --}}        
-                <x-jet-input-error for="cashierId" />
+                <x-input-error for="cashierId" />
             </div>
     
             <div class="flex-col mx-4">
-                <x-jet-label value="Fecha Inicial" />
-                <x-jet-input type="date" wire:model.lazy="initDate" class="form-input" />
+                <x-label value="Fecha Inicial" />
+                <x-input type="date" wire:model.lazy="initDate" class="form-input" />
                 {{-- Error Msg by Validation --}}        
-                <x-jet-input-error for="initDate" />
+                <x-input-error for="initDate" />
             </div>
     
             <div class="flex-col mx-4">
-                <x-jet-label value="Fecha Final" />
-                <x-jet-input type="date" wire:model.lazy="finishDate" class="form-input" />
+                <x-label value="Fecha Final" />
+                <x-input type="date" wire:model.lazy="finishDate" class="form-input" />
                 {{-- Error Msg by Validation --}}        
-                <x-jet-input-error for="finishDate" />
+                <x-input-error for="finishDate" />
             </div>
 
         </div>

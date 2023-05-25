@@ -18,11 +18,12 @@ return new class extends Migration
             $table->string('name', 150);
             $table->string('slug', 150);
             $table->string('description');
+            $table->enum('type', ['PRODUCT', 'SERVICE']);
             $table->string('barcode');
-            $table->double('cost',2);
+            $table->double('cost',2)->nullable();
             $table->double('price',2);
-            $table->integer('qty');
-            $table->integer('alert')->default(20);
+            $table->integer('qty')->nullable();
+            $table->integer('low_stock')->nullable();
             $table->tinyInteger('status')->default(1);
             
             $table->unsignedBigInteger('brand_id');

@@ -24,7 +24,7 @@
                     <td class="text-center">{{ $item->options->brand }}</td>
                     <td class="text-center">$ {{ $item->price }}</td>
                     <td class="text-center">
-                        <x-jet-input onchange="updateQty('{{ $item->rowId }}', '{{ $item->id }}', this.value)" type="number" step="1" value="{{ $item->qty }}" class="w-20" />
+                        <x-input onchange="updateQty('{{ $item->rowId }}', '{{ $item->id }}', this.value)" type="number" step="1" value="{{ $item->qty }}" class="w-20" />
                     </td>
                     <td class="text-center">$ {{ $item->options->subtotal }}</td>
                     <td class="text-center"> 
@@ -38,7 +38,7 @@
         </table>
 
         @else
-        <div class="p-2 bg-white text-lg text-sky-900 text-center border-2 border-sky-600">
+        <div class="p-2 bg-white text-lg text-sky-800 text-center border border-sky-600">
             Escanear Productos para iniciar la venta!!
         </div>
         @endif

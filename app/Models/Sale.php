@@ -9,7 +9,8 @@ class Sale extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['qty', 'subtotal', 'iva', 'total', 'cash', 'change', 'status', 'user_id'];
+    protected $fillable = ['qty', 'subtotal', 'iva', 'total', 'cash', 'change', 'status', 
+                            'user_id', 'client_id', 'cashout_id'];
 
     //One to one relationship
     public function saledetails(){
@@ -18,11 +19,16 @@ class Sale extends Model
 
     //Inverse relation one to many
     public function client(){
-        return $this->hasMany(Client::class);
+        return $this->belongsTo(Client::class);
     }
 
     //Inverse relation one to many
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    //Inverse relation one to many
+    public function cashout(){
+        return $this->belongsTo(Cashout::class);
     }
 }

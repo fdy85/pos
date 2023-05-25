@@ -18,7 +18,7 @@ class UsersIndex extends Component
     use WithPagination;
 
     public $title, $add, $selectedId,
-            $name, $email, $cel, $password, $status, $level, $role,
+            $name, $email, $cel, $password, $status, $role, $branchOfficeId,
             $search, $formOpen;
 
     public function mount(){
@@ -44,16 +44,20 @@ class UsersIndex extends Component
 
     public function render()
     {
-        $users = User::where('name', 'like', '%'.$this->search.'%')
+        $items = User::where('name', 'like', '%'.$this->search.'%')
                         ->orWhere('email', 'like', '%'.$this->search.'%')
                         ->orWhere('cel', 'like', '%'.$this->search.'%')
                         ->paginate(20);
 
         $roles = ModelsRole::all();
 
+        $branchOffices = BranchOffice::where('status', true)->get();
+
         return view('livewire.admin.users.users-index', 
-                                                    ['items' => $users, 
-                                                    'roles' => $roles])
+                                                    ['items' => $items, 
+                                                    'roles' => $roles,
+                                                    'branchOffices' => $branchOffices,
+                                                    ])
                     ->extends('layouts.app')
                     ->section('content');
     }
@@ -62,6 +66,16 @@ class UsersIndex extends Component
     public function showForm(){
         $this->resetUI();
         $this->formOpen = true;
+    }
+
+    /* Validate Role */
+    public function updatedRole(){
+        //dd('Actualizado');
+        if($this->role == 'Cliente'){
+            $this->branchOfficeId = null;
+        }else{
+            $this->branchOfficeId = 1;
+        }
     }
 
     /* store record */
@@ -82,6 +96,12 @@ class UsersIndex extends Component
                     'password.min' => 'La contraseña debe contener al menos 8 caracteres',
                     'role.required' => 'El tipo de Role es requerido',
                     ];
+
+        if($this->role != 'Cliente'){
+            $rules += ['branchOfficeId' => 'required'];
+            $messages += ['branchOfficeId.required' => 'La Sucursal a la que pertenecerá es requerido'];
+        }
+
         $this->validate($rules, $messages);
         /* store record */
         try {
@@ -90,6 +110,7 @@ class UsersIndex extends Component
                                     'cel' => $this->cel,
                                     'password' => Hash::make($this->password),
                                     'level' => $this->level,
+                                    'branch_office_id' => $this->branchOfficeId,
                                     ]);
             /* Assign Role */
             $newUser->assignRole($this->role);
@@ -111,8 +132,8 @@ class UsersIndex extends Component
         $this->email = $user->email;
         $this->cel = $user->cel;
         $this->status = $user->status;
-        $this->level = $user->level;
         $this->role = $user->getRoleNames();    //Get 1st RoleNmae
+        $this->branchOfficeId = $user->branch_office_id;
         $this->formOpen = true;
     }
 
@@ -122,12 +143,14 @@ class UsersIndex extends Component
         $rules = ['name' => 'required|min:6',
                     'email' => 'required|email',
                     'role' => 'required',
+                    'branchOfficeId' => 'required',
                 ];
         $messages = ['name.required' => 'El nombre es requerido',
                     'name.min' => 'El nombre debe contener al menos 6 caracteres',
                     'email.required' => 'El correo Electronico es requerido',
                     'email.email' => 'El correo electronico debe tener formato de Correo Electronico',
                     'role.required' => 'El tipo de Role es requerido',
+                    'branchOfficeId.required' => 'La Sucursal a la que pertenecerá es requerido',
                     ];
         $this->validate($rules, $messages);
         /* find record */
@@ -139,6 +162,7 @@ class UsersIndex extends Component
                             'cel' => $this->cel,
                             'level' => $this->role[0],  //get 1st roleName
                             'status' => $this->status,
+                            'branch_office_id' => $this->branchOfficeId,
                         ]);
             /* Sync roles */
             $user->syncRoles($this->role);
@@ -164,7 +188,7 @@ class UsersIndex extends Component
     }
 
     public function resetUI(){
-        $this->reset(['selectedId', 'name', 'email', 'cel', 'password', 'status', 'level', 'role',
+        $this->reset(['selectedId', 'name', 'email', 'cel', 'password', 'status', 'role', 'branchOfficeId',
                         'search', 'formOpen']);
     }
 }

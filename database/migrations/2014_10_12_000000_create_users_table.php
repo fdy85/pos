@@ -24,6 +24,10 @@ return new class extends Migration
             $table->boolean('status')->default(0);  //0 => Deactivated 1 => Active
             $table->string('level')->nullable();
 
+            $table->unsignedBigInteger('branch_office_id')->nullable();
+
+            $table->foreign('branch_office_id')->references('id')->on('branch_offices');
+
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

@@ -32,6 +32,7 @@ class User extends Authenticatable
         'password',
         'status',
         'level',
+        'branch_office_id',
     ];
 
     /**
@@ -64,13 +65,23 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    //Relacion Uno a Muchos Inversa
-    public function branch_office(){
+    //Inverse Relacion Uno a Muchos
+    public function branchOffice(){
         return $this->belongsTo(BranchOffice::class);
     }
 
-    //Relacion Uno a Muchos Inversa
+    //Relacion Uno a Muchos
     public function sales(){
         return $this->hasMany(Sale::class);
+    }
+
+    //Relacion Uno a Muchos
+    public function cashouts(){
+        return $this->hasMany(Cashout::class);
+    }
+
+    //Relacion Uno a Uno
+    public function cashRegister(){
+        return $this->hasOne(CashRegister::class);
     }
 }
